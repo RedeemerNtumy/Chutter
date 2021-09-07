@@ -22,6 +22,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   child: Image.asset('images/chutter.png'),
                   height: 60.0,
                 ),
+                SizedBox(
+                  width: 10,
+                ),
                 Text(
                   'Chutter',
                   style: TextStyle(
