@@ -9,7 +9,38 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation animation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
+    controller.forward();
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        controller.reverse(from: 1.0);
+      } else if (status == AnimationStatus.dismissed) {
+        controller.forward();
+      }
+    });
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +54,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Row(
               children: <Widget>[
                 Hero(
-                  tag:'logo',
+                  tag: 'logo',
                   child: Container(
                     child: Image.asset('images/chutter.png'),
                     height: 60.0,
@@ -42,7 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ],
             ),
             SizedBox(
-              height: 48.0,
+              height: controller.value * 40,
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -53,7 +84,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     Navigator.pushNamed(context, LoginScreen.id);
-                  
                   },
                   minWidth: 200.0,
                   height: 42.0,
@@ -72,7 +102,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     Navigator.pushNamed(context, RegistrationScreen.id);
-                   
                   },
                   minWidth: 200.0,
                   height: 42.0,
