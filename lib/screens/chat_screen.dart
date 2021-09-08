@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:chutter/constants.dart';
 
 class ChatScreen extends StatefulWidget {
+  final String id = "chat";
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -19,7 +20,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 //Implement logout functionality
               }),
         ],
-        title: Text('⚡️Chat'),
+        title: Text('Chat'),
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
