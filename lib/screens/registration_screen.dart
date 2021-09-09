@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:chutter/PaddingButton.dart';
+import 'package:chutter/components/PaddingButton.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = "registration";

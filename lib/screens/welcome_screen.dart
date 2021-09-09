@@ -1,7 +1,7 @@
 import 'package:chutter/screens/login_screen.dart';
 import 'package:chutter/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:chutter/PaddingButton.dart';
+import 'package:chutter/components/PaddingButton.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = "welcome";
