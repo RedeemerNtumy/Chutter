@@ -18,7 +18,7 @@ const kMessageContainerDecoration = BoxDecoration(
   ),
 );
 
-const forms= InputDecoration(
+const kforms= InputDecoration(
               hintText: 'Enter your email',
               contentPadding:
                   EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
