@@ -1,6 +1,7 @@
 import 'package:chutter/screens/login_screen.dart';
 import 'package:chutter/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:chutter/PaddingButton.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = "welcome";
@@ -75,42 +76,18 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             SizedBox(
               height: controller.value * 40,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
+            PaddingButton(
                 color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, LoginScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
+                onPressed: () {
+                  Navigator.pushNamed(context, LoginScreen.id);
+                },
+                text: "Log In"),
+            PaddingButton(
                 color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, RegistrationScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
-            ),
+                onPressed: () {
+                  Navigator.pushNamed(context, RegistrationScreen.id);
+                },
+                text: "Register"),
           ],
         ),
       ),
