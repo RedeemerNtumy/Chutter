@@ -12,11 +12,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  @override
-  void initState() {
-  
-    super.initState();
-  }
+ 
 
   final _auth = FirebaseAuth.instance;
   late String email;
