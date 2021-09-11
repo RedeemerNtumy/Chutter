@@ -28,7 +28,8 @@ class _LoadingState extends State<Loading> {
           email: widget.email, password: widget.password);
       print(widget.email);
       if (user != null) {
-        Navigator.push(
+        
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) {

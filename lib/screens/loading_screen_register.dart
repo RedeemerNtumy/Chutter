@@ -15,7 +15,6 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   final _auth = FirebaseAuth.instance;
 
-
   @override
   void initState() {
     register();
@@ -27,14 +26,14 @@ class _LoadingState extends State<Loading> {
       dynamic newUser = await _auth.createUserWithEmailAndPassword(
           email: widget.email, password: widget.password);
       if (newUser != null) {
-        Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return ChatScreen(newUser);
-        },
-      ),
-    );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return ChatScreen(newUser);
+            },
+          ),
+        );
       }
     } catch (e) {
       print(e);
