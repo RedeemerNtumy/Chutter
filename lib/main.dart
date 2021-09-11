@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:chutter/screens/welcome_screen.dart';
 import 'package:chutter/screens/login_screen.dart';
 import 'package:chutter/screens/registration_screen.dart';
-import 'package:chutter/screens/chat_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -19,7 +18,7 @@ class Chutter extends StatelessWidget {
       WelcomeScreen.id: (context) => WelcomeScreen(),
       RegistrationScreen.id: (context) => RegistrationScreen(),
       LoginScreen.id: (context) => LoginScreen(),
-      ChatScreen.id: (context) => ChatScreen(),
+     
     });
   }
 }

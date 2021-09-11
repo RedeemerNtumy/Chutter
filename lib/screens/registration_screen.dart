@@ -12,8 +12,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
- 
-
+  
   final _auth = FirebaseAuth.instance;
   late String email;
   late String password;
@@ -62,7 +61,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 color: Colors.blueAccent,
                 onPressed: () async {
                   try {
-                   
                     dynamic newUser =
                         await _auth.createUserWithEmailAndPassword(
                             email: email, password: password);

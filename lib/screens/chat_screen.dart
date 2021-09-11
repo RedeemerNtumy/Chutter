@@ -3,6 +3,8 @@ import 'package:chutter/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatScreen extends StatefulWidget {
+  ChatScreen(this.newUser);
+  final newUser;
   static const String id = "chat";
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -15,6 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     getCurrentuser();
+
     super.initState();
   }
 
