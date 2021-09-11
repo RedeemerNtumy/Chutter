@@ -24,15 +24,15 @@ class _LoadingState extends State<Loading> {
 
   void login() async {
     try {
-      dynamic newUser = await _auth.signInWithEmailAndPassword(
+      dynamic user = await _auth.signInWithEmailAndPassword(
           email: widget.email, password: widget.password);
       print(widget.email);
-      if (newUser != null) {
+      if (user != null) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) {
-              return ChatScreen(newUser);
+              return ChatScreen(user);
             },
           ),
         );

@@ -1,9 +1,8 @@
-import 'package:chutter/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chutter/components/PaddingButton.dart';
 import 'package:chutter/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
+import 'loading_screen_register.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = "registration";
@@ -12,8 +11,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  
-  final _auth = FirebaseAuth.instance;
+
   late String email;
   late String password;
   @override
@@ -60,16 +58,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             PaddingButton(
                 color: Colors.blueAccent,
                 onPressed: () async {
-                  try {
-                    dynamic newUser =
-                        await _auth.createUserWithEmailAndPassword(
-                            email: email, password: password);
-                    if (newUser != null) {
-                      Navigator.pushNamed(context, ChatScreen.id);
-                    }
-                  } catch (e) {
-                    print(e);
-                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return Loading(email: email, password: password);
+                      },
+                    ),
+                  );
                 },
                 text: 'Register')
           ],
