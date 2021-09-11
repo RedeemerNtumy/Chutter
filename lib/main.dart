@@ -4,6 +4,7 @@ import 'package:chutter/screens/login_screen.dart';
 import 'package:chutter/screens/registration_screen.dart';
 import 'package:chutter/screens/chat_screen.dart';
 
+
 void main() => runApp(Chutter());
 
 class Chutter extends StatelessWidget {
@@ -19,3 +20,4 @@ class Chutter extends StatelessWidget {
         });
   }
 }
+

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "331676118632",
+    "project_id": "chutter-f1df8",
+    "storage_bucket": "chutter-f1df8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331676118632:android:7ac23a848d6927ff5755dd",
+        "android_client_info": {
+          "package_name": "Redeemer.k.Ntumy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331676118632-k9mj06r29lithqfu32l6svq2t6thmtad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAulA5U2EQfuqU3K9uCqo193H5NSRPrik0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331676118632-k9mj06r29lithqfu32l6svq2t6thmtad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
