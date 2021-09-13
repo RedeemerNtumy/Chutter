@@ -66,10 +66,19 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             StreamBuilder<QuerySnapshot>(
-              builder: (context, snapshot){
+              builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  final messages = snapshot.data!.docs;
+                  final messages = snapshot.data.docs;
+                  List<Text> messageWidgets = [];
+                  for (var message in messages) {
+                    final messageText = message.data()['text'];
+                    final messageSender = message.data()['sender'];
+
+                    final messageWidget =
+                        Text('$messageText from $messageSender');
+                  }
                 }
+                return 1;
               },
               stream: _store.collection('messages').snapshots(),
             ),
