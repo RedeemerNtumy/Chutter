@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:chutter/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen(this.newUser);
@@ -13,6 +14,8 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
   late User loggedInUser;
+  late String messageText;
+  final _store = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -62,14 +65,16 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
-                        //Do something with the user input.
+                        messageText = value;
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
                   TextButton(
                     onPressed: () {
-                      //Implement send functionality.
+                      _store.collection('messages').add(
+                        {'text': messageText, 'sender': loggedInUser.email},
+                      );
                     },
                     child: Text(
                       'Send',
@@ -85,4 +90,3 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
-// TODO :Navigator will go back to loop. Change that
