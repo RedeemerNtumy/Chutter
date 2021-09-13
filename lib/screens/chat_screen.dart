@@ -36,13 +36,6 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  // void getMessages() async {
-  //   final messages = await _store.collection('messages').get();
-  //   for (var message in messages.docs) {
-  //     print(message.data());
-  //   }
-  // }
-
   void getMessages() async {
     await for (var snapshot in _store.collection('messages').snapshots()) {
       for (var message in snapshot.docs) {
@@ -60,9 +53,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                getMessages();
-                // _auth.signOut();
-                // Navigator.pop(context);
+                _auth.signOut();
+                Navigator.pop(context);
               }),
         ],
         title: Text('Chat'),
@@ -73,6 +65,14 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+              builder: (context, snapshot){
+                if (snapshot.hasData) {
+                  final messages = snapshot.data!.docs;
+                }
+              },
+              stream: _store.collection('messages').snapshots(),
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
