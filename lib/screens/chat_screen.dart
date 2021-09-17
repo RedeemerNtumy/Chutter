@@ -68,7 +68,7 @@ class _ChatScreenState extends State<ChatScreen> {
             StreamBuilder<QuerySnapshot>(
               stream: _store.collection('messages').snapshots(),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
+                if (!snapshot.hasData) {
                   final messages = snapshot.data!.docs;
                   List<Text> messageWidgets = [];
                   for (var message in messages) {
@@ -82,8 +82,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   return Column(
                     children: messageWidgets,
                   );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
-                throw Column();
               },
             ),
             Container(
