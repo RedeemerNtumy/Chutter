@@ -68,19 +68,24 @@ class _ChatScreenState extends State<ChatScreen> {
             StreamBuilder<QuerySnapshot>(
               stream: _store.collection('messages').snapshots(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.hasData) {
                   final messages = snapshot.data!.docs;
-                  List<Text> messageWidgets = [];
+                  List<MessageAppear> messageAppears = [];
                   for (var message in messages) {
                     final messageText = (message.data() as Map)['text'];
                     final messageSender = (message.data() as Map)['sender'];
 
-                    final messageWidget =
-                        Text('$messageText from $messageSender');
-                    messageWidgets.add(messageWidget);
+                    final messageAppear =
+                        MessageAppear(sender: messageSender, text: messageText);
+                    Text('$messageText from $messageSender');
+                    messageAppears.add(messageAppear);
                   }
-                  return Column(
-                    children: messageWidgets,
+                  return Expanded(
+                    child: ListView(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                      children: messageAppears,
+                    ),
                   );
                 } else {
                   return Center(
@@ -119,6 +124,19 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class MessageAppear extends StatelessWidget {
+  MessageAppear({required this.sender, required this.text});
+  final String sender;
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.lightBlueAccent,
+      child: Text('$text from $sender'),
     );
   }
 }
