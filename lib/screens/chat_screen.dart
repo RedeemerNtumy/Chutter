@@ -134,9 +134,25 @@ class MessageAppear extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.lightBlueAccent,
-      child: Text('$text from $sender'),
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          Text(sender),
+          Material(
+            borderRadius: BorderRadius.circular(40),
+            elevation: 8,
+            color: Colors.lightBlueAccent,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Text(
+                text,
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
