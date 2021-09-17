@@ -72,8 +72,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   final messages = snapshot.data!.docs;
                   List<Text> messageWidgets = [];
                   for (var message in messages) {
-                    final messageText = (message.data as Map)['text'];
-                    final messageSender = (message.data as Map)['sender'];
+                    final messageText = (message.data() as Map)['text'];
+                    final messageSender = (message.data() as Map)['sender'];
 
                     final messageWidget =
                         Text('$messageText from $messageSender');
@@ -83,7 +83,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     children: messageWidgets,
                   );
                 }
-                return Column();
+                throw Column();
               },
             ),
             Container(
