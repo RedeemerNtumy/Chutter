@@ -3,6 +3,8 @@ import 'package:chutter/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+final _store = FirebaseFirestore.instance;
+
 class ChatScreen extends StatefulWidget {
   ChatScreen(this.newUser);
   final newUser;
@@ -15,7 +17,6 @@ class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
   late User loggedInUser;
   late String messageText;
-  final _store = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -65,35 +66,7 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            StreamBuilder<QuerySnapshot>(
-              stream: _store.collection('messages').snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final messages = snapshot.data!.docs;
-                  List<MessageAppear> messageAppears = [];
-                  for (var message in messages) {
-                    final messageText = (message.data() as Map)['text'];
-                    final messageSender = (message.data() as Map)['sender'];
-
-                    final messageAppear =
-                        MessageAppear(sender: messageSender, text: messageText);
-                    Text('$messageText from $messageSender');
-                    messageAppears.add(messageAppear);
-                  }
-                  return Expanded(
-                    child: ListView(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                      children: messageAppears,
-                    ),
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
+            MessageStream(),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -128,6 +101,40 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
+class MessageStream extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _store.collection('messages').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final messages = snapshot.data!.docs;
+          List<MessageAppear> messageAppears = [];
+          for (var message in messages) {
+            final messageText = (message.data() as Map)['text'];
+            final messageSender = (message.data() as Map)['sender'];
+
+            final messageAppear =
+                MessageAppear(sender: messageSender, text: messageText);
+            Text('$messageText from $messageSender');
+            messageAppears.add(messageAppear);
+          }
+          return Expanded(
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              children: messageAppears,
+            ),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+}
+
 class MessageAppear extends StatelessWidget {
   MessageAppear({required this.sender, required this.text});
   final String sender;
@@ -137,8 +144,12 @@ class MessageAppear extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(sender),
+          Text(
+            sender,
+            style: TextStyle(color: Colors.black54, fontSize: 12),
+          ),
           Material(
             borderRadius: BorderRadius.circular(40),
             elevation: 8,
