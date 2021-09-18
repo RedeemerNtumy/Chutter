@@ -17,6 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
   late User loggedInUser;
   late String messageText;
+  final textControl = TextEditingController();
 
   @override
   void initState() {
@@ -74,6 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: textControl,
                       onChanged: (value) {
                         messageText = value;
                       },
@@ -85,6 +87,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       _store.collection('messages').add(
                         {'text': messageText, 'sender': loggedInUser.email},
                       );
+
+                      textControl.clear();
                     },
                     child: Text(
                       'Send',
