@@ -40,13 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void getMessages() async {
-    await for (var snapshot in _store.collection('messages').snapshots()) {
-      for (var message in snapshot.docs) {
-        print(message.data());
-      }
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +108,7 @@ class MessageStream extends StatelessWidget {
       stream: _store.collection('messages').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final messages = snapshot.data!.docs;
+          final messages = snapshot.data!.docs.reversed;
           List<MessageAppear> messageAppears = [];
           for (var message in messages) {
             final messageText = (message.data() as Map)['text'];
@@ -132,6 +126,7 @@ class MessageStream extends StatelessWidget {
           }
           return Expanded(
             child: ListView(
+              reverse: true,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               children: messageAppears,
             ),
@@ -168,13 +163,13 @@ class MessageAppear extends StatelessWidget {
             borderRadius: activeUser
                 ? BorderRadius.only(
                     bottomRight: Radius.circular(30),
-                    topLeft: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
+                    topLeft: Radius.circular(30),
+                    bottomLeft: Radius.circular(30),
                   )
                 : BorderRadius.only(
                     bottomLeft: Radius.circular(30),
-                    topRight: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
+                    topRight: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
                   ),
             elevation: 8,
             color: activeUser ? Colors.lightBlueAccent : Colors.white,
@@ -184,7 +179,7 @@ class MessageAppear extends StatelessWidget {
                 text,
                 style: activeUser
                     ? TextStyle(color: Colors.white, fontSize: 15)
-                    : TextStyle(color: Colors.black, fontSize: 15),
+                    : TextStyle(color: Colors.black54, fontSize: 15),
               ),
             ),
           ),
