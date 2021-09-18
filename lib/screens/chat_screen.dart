@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 final _store = FirebaseFirestore.instance;
 
+late User? loggedInUser;
+
 class ChatScreen extends StatefulWidget {
   ChatScreen(this.newUser);
   final newUser;
@@ -15,7 +17,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
-  late User loggedInUser;
+
   late String messageText;
   final textControl = TextEditingController();
 
@@ -85,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   TextButton(
                     onPressed: () {
                       _store.collection('messages').add(
-                        {'text': messageText, 'sender': loggedInUser.email},
+                        {'text': messageText, 'sender': loggedInUser!.email},
                       );
 
                       textControl.clear();
@@ -118,8 +120,13 @@ class MessageStream extends StatelessWidget {
             final messageText = (message.data() as Map)['text'];
             final messageSender = (message.data() as Map)['sender'];
 
-            final messageAppear =
-                MessageAppear(sender: messageSender, text: messageText);
+            final currentUser = loggedInUser!.email;
+
+            final messageAppear = MessageAppear(
+              sender: messageSender,
+              text: messageText,
+              activeUser: currentUser == messageSender,
+            );
             Text('$messageText from $messageSender');
             messageAppears.add(messageAppear);
           }
@@ -140,29 +147,44 @@ class MessageStream extends StatelessWidget {
 }
 
 class MessageAppear extends StatelessWidget {
-  MessageAppear({required this.sender, required this.text});
+  MessageAppear(
+      {required this.sender, required this.text, required this.activeUser});
   final String sender;
   final String text;
+  final bool activeUser;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment:
+            activeUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(
             sender,
             style: TextStyle(color: Colors.black54, fontSize: 12),
           ),
           Material(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: activeUser
+                ? BorderRadius.only(
+                    bottomRight: Radius.circular(30),
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                  )
+                : BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
             elevation: 8,
-            color: Colors.lightBlueAccent,
+            color: activeUser ? Colors.lightBlueAccent : Colors.white,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
                 text,
-                style: TextStyle(color: Colors.white, fontSize: 15),
+                style: activeUser
+                    ? TextStyle(color: Colors.white, fontSize: 15)
+                    : TextStyle(color: Colors.black, fontSize: 15),
               ),
             ),
           ),
