@@ -1,3 +1,4 @@
+import 'package:chutter/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,7 +37,13 @@ class _LoadingState extends State<Loading> {
         );
       }
     } catch (e) {
-      Navigator.pop(context);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        return RegistrationScreen(
+          warning: "Registration Failed.Please try again !",
+          color: Colors.red,
+          isVisible: true,
+        );
+      }));
     }
   }
 

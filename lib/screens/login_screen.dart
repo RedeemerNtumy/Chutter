@@ -5,7 +5,6 @@ import 'loading_screen_login.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatefulWidget {
-  static const String id = "login";
   LoginScreen(
       {required this.warning, required this.color, required this.isVisible});
   late String warning;

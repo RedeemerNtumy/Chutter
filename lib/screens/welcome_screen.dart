@@ -80,19 +80,27 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 color: Colors.lightBlueAccent,
                 onPressed: () {
                   Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return LoginScreen(warning: "Incorrect Credentials !", color: Colors.blueAccent, isVisible: false);
-            },
-          ),
-        );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return LoginScreen(
+                            warning: "Incorrect Credentials !",
+                            color: Colors.blueAccent,
+                            isVisible: false);
+                      },
+                    ),
+                  );
                 },
                 text: "Log In"),
             PaddingButton(
                 color: Colors.blueAccent,
                 onPressed: () {
-                  Navigator.pushNamed(context, RegistrationScreen.id);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return RegistrationScreen(
+                        warning: "Registration Failed !",
+                        color: Colors.blueAccent,
+                        isVisible: false);
+                  }));
                 },
                 text: "Register"),
           ],
