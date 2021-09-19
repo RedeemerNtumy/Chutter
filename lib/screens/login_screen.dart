@@ -69,7 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               decoration: kforms.copyWith(
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: widget.color, width: 1.0),
+                  borderSide: BorderSide(
+                      color: email.isEmpty ? widget.color : Colors.blueAccent,
+                      width: 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
                 focusedBorder: OutlineInputBorder(
@@ -93,7 +95,9 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: kforms.copyWith(
                 hintText: "Enter your password",
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: widget.color, width: 1.0),
+                  borderSide: BorderSide(
+                      color: email.isEmpty ? widget.color : Colors.blueAccent,
+                      width: 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
                 focusedBorder: OutlineInputBorder(
