@@ -11,6 +11,11 @@ buildscript {
         classpath 'com.google.gms:google-services:4.3.10'
     }
 }
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile){
+        options.compilerArgs << "-Xlint:deprecation"
+    }
+}
 
 allprojects {
     repositories {
@@ -28,3 +33,4 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+

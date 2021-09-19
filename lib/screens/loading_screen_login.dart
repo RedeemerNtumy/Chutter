@@ -1,3 +1,4 @@
+import 'package:chutter/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -26,9 +27,7 @@ class _LoadingState extends State<Loading> {
     try {
       dynamic user = await _auth.signInWithEmailAndPassword(
           email: widget.email, password: widget.password);
-      print(widget.email);
       if (user != null) {
-        
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -39,7 +38,18 @@ class _LoadingState extends State<Loading> {
         );
       }
     } catch (e) {
-      print(e);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return LoginScreen(
+              warning: "Incorrect Credentials !",
+              color: Colors.red,
+              isVisible: true,
+            );
+          },
+        ),
+      );
     }
   }
 

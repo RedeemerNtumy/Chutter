@@ -79,7 +79,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             PaddingButton(
                 color: Colors.lightBlueAccent,
                 onPressed: () {
-                  Navigator.pushNamed(context, LoginScreen.id);
+                  Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return LoginScreen(warning: "Incorrect Credentials !", color: Colors.blueAccent, isVisible: false);
+            },
+          ),
+        );
                 },
                 text: "Log In"),
             PaddingButton(

@@ -36,7 +36,7 @@ class _LoadingState extends State<Loading> {
         );
       }
     } catch (e) {
-      print(e);
+      Navigator.pop(context);
     }
   }
 
