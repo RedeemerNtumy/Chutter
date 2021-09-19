@@ -13,12 +13,13 @@ class LoginScreen extends StatefulWidget {
   late bool isVisible;
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _LoginScreenState createState() => _LoginScreenState("", "");
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late String email;
-  late String password;
+  String email;
+  String password;
+  _LoginScreenState(this.email, this.password);
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
               onChanged: (value) {
-                // ignore: unnecessary_null_comparison
-                if (value == null) {
-                  email = "test@gmail.com";
-                }
                 email = value;
                 setState(() {
                   widget.isVisible = false;
@@ -88,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
               textAlign: TextAlign.center,
               onChanged: (value) {
                 password = value;
+
                 setState(() {
                   widget.isVisible = false;
                 });
